@@ -7,10 +7,13 @@ class Content_Model{
 
     }
 
-   
 
-    public static function getContent($table){
+
+    public static function getContent($table, $database){
         $bdd = MyPDO::getInstance();
+
+        $pdo = $bdd->prepare("USE $database");
+        $pdo->execute();
 
         $result = $bdd->prepare("select * from ".$table);
         $result->execute();
