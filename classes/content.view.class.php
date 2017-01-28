@@ -10,13 +10,13 @@ class content_view(){
 }
 */
 
-class Databases_View{
+class Content_View{
 
     private function __construct(){
 
     }
 
-    public static function listDatabases($tab){
+    public static function listContent($tab){
         $html = "<table border='1'> <tr>";
 
 		$columns=$tab[0];
@@ -28,9 +28,18 @@ class Databases_View{
 
         $html .= "</tr>";
 
-        foreach($result as $data){
-        	$html .= "<td>".$data['Field']."</td>";
+        // var_dump($result);
+        foreach ($result as $data) {
+            $html .= "<tr>";
+            foreach ($data as $value) {
+                $html .= "<td>" . $value . "</td>";
+            }
+            $html .= "</tr>";
         }
+
+       /* foreach($result as $data){
+        	$html .= var_dump($data);
+        }*/
 
         $html .= "</table>";
         return $html;

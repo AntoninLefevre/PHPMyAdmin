@@ -10,6 +10,7 @@ class Content_Model{
    
 
     public static function getContent($table){
+  
         $bdd = MyPDO::getInstance();
 
         $result = $bdd->prepare("select * from ".$table);
@@ -20,7 +21,7 @@ class Content_Model{
 
         // return
         $columns = $cols->fetchAll();
-        $res = $result->fetchAll();
+        $res = $result->fetchAll(PDO::FETCH_NUM);
 
         $tab[0]=$columns;
         $tab[1]=$res;
