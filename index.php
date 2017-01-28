@@ -2,14 +2,6 @@
 
 require_once('mypdo.include.php');
 
-require_once("classes/databases.model.class.php");
-$databases = Databases_Model::getDatabases();
-
-require_once("classes/databases.view.class.php");
-
-$html = Databases_View::listDatabases($databases);
-
-
 
 
 if(isset($_GET['db'])){
@@ -22,7 +14,7 @@ if(isset($_GET['db'])){
     $html = Tables_View::listTables($tables);
 
 }
-else if(isset($GET['T'])){
+else if(isset($GET['t'])){
     require_once("classes/content.model.class.php");
 
     $content = Content_Model::getTables();
