@@ -32,6 +32,7 @@ class Databases_View{
         	$html .= "<td>".$data['Field']."</td>";
         }
 
+        $html .= "</table>";
         return $html;
     }
 }
