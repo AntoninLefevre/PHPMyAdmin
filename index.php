@@ -10,38 +10,38 @@ require_once("classes/databases.view.class.php");
 
 $html = Databases_View::listDatabases($databases);
 
-/*$bdd = MyPDO::getInstance();
-
-$pdo = $bdd->prepare("show databases");
-$pdo->execute();
-
-$res = $pdo->fetchAll();
 
 
-$html = "";
 
-foreach ($res as $dbname) {
-    $html .= "<h1>" . $dbname['Database']. "</h1>";
-    $pdo = $bdd->prepare("use " . $dbname['Database']);
-    $pdo->execute();
-    $pdo = $bdd->prepare("SHOW TABLES");
-    $pdo->execute();
-    $tables = $pdo->fetchAll();
+if(isset($_GET['db'])){
+    require_once("classes/tables.model.class.php");
 
-    foreach ($tables as $table) {
-        $html .= "<h4>" . $table['Tables_in_' . $dbname['Database']] . "</h4>";
+    $tables = Tables_Model::getTables();
 
-        $pdo = $bdd->prepare("SHOW COLUMNS FROM " .$table['Tables_in_' . $dbname['Database']] );
-        $pdo->execute();
+    require_once("classes/tables.view.class.php");
 
-        $columns = $pdo->fetchAll();
+    $html = Tables_View::listTables($tables);
 
-        foreach ($columns as $column) {
-            $html .= "<h6>" . $column['Field'] . "</h6>";
-        }
-    }
 }
-*/
+else if(isset($GET['T'])){
+    require_once("classes/content.model.class.php");
+
+    $content = Content_Model::getTables();
+
+    require_once("classes/content.view.class.php");
+
+    $html = Content_View::listTables($content);
+}
+else{
+    require_once("classes/databases.model.class.php");
+
+    $databases = Databases_Model::getDatabases();
+
+    require_once("classes/databases.view.class.php");
+
+    $html = Databases_View::listDatabases($databases);
+}
+
 
 echo $html;
 
