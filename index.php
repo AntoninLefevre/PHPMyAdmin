@@ -2,12 +2,21 @@
 
 require_once('mypdo.include.php');
 
-$bdd = MyPDO::getInstance();
+require_once("classes/databases.model.class.php");
+
+$databases = Databases_Model::getDatabases();
+
+require_once("classes/databases.view.class.php");
+
+$html = Databases_View::listDatabases($databases);
+
+/*$bdd = MyPDO::getInstance();
 
 $pdo = $bdd->prepare("show databases");
 $pdo->execute();
 
 $res = $pdo->fetchAll();
+
 
 $html = "";
 
@@ -32,6 +41,7 @@ foreach ($res as $dbname) {
         }
     }
 }
-
+*/
 
 echo $html;
+
