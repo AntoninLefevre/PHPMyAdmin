@@ -2,13 +2,13 @@
 
 require_once('mypdo.include.php');
 
-require_once("classes/databases.model.class.php");
+require_once("classes/tables.model.class.php");
 
-$databases = Databases_Model::getDatabases();
+$tables = Tables_Model::getTables("empire");
 
-require_once("classes/databases.view.class.php");
+require_once("classes/tables.view.class.php");
 
-$html = Databases_View::listDatabases($databases);
+$html = tables_View::listTables($tables, "empire");
 
 /*$bdd = MyPDO::getInstance();
 

@@ -12,13 +12,13 @@ class Tables_Model{
         $pdo->execute();
 		
 		$pdo = $bdd->prepare("SHOW TABLES");
-
+		$pdo->execute();
         $res = $pdo->fetchAll();
-
-        foreach ($res as $tables) {
-            $tables[] = $tables['Tables'];
+		
+        foreach ($res as $table) {
+            $tables[] = $table;
         }
 
-        return $Tables;
+        return $tables;
     }
 }
