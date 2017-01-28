@@ -3,7 +3,6 @@
 require_once('mypdo.include.php');
 
 require_once("classes/databases.model.class.php");
-
 $databases = Databases_Model::getDatabases();
 
 require_once("classes/databases.view.class.php");
