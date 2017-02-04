@@ -40,6 +40,18 @@ class Content_View{
         $html .= "</table>";
         return $html;
     }
+
+    public static function formAddContent($data){
+
+    }
+
+    public static function formEditContent($content){
+
+    }
+
+    public static function formDeleteContent($idContent){
+
+    }
 }
 
 
