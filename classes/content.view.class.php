@@ -51,9 +51,16 @@ class Content_View{
 
     }
 
-    public static function formDeleteContent($idContent){
-
-    }
+    public static function formDeleteContent($db_name, $tb_name, $idContent){
+		$html = "<form action='?db=$db_name&t=$tb_name&id=$idContent&a=d' method='POST'>";
+		$html .= "<p>Etes-vous sûr de vouloir supprimer ?</p>";
+		$html .= "<input type='submit' name='delete' value='Oui'/>";
+	}	
+    
+	
+	
+	
+	
 }
 
 
