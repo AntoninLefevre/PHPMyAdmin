@@ -27,12 +27,21 @@ class Content_Model{
 
         $tab[0]=$columns;
         $tab[1]=$res;
+        $tab[2]=$table;
+        $tab[3]=$database;
 
         return $tab;
     }
 
-    public static function selectContent($idContent){
-
+    public static function selectContent($database, $table, $idContent){
+    /*    $pdo = $bdd->prepare("USE $database");
+        $pdo->execute();
+        $cols = $bdd->prepare("SHOW COLUMNS FROM " .$table);
+        $cols->execute();
+        $columns = $cols->fetchAll();
+        var_dump($columns);
+        $result = $bdd->prepare("select * from ".$table);
+        $result->execute();*/
     }
 
     public static function addContent($data){
