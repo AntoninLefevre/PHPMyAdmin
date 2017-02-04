@@ -49,8 +49,17 @@ class Content_View{
 
     }
 
-    public static function formEditContent($content){
-
+    public static function formEditContent($result){
+        $html .= "<form action='#' method='POST'>";
+        foreach($result as $data){
+            foreach ($data as $key=>$value) {
+                $html .= $key;
+                $html .= " : ";
+                $html .= "<input type='test' name='value[]' value='".$value."'><br />";
+            }
+        }
+        $html .= "<input type='submit' value='OK' name='edit_btn'></form>";
+       
     }
 
     public static function formDeleteContent($idContent){
