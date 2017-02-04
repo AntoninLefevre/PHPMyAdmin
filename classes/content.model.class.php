@@ -51,9 +51,16 @@ class Content_Model{
 
         for ($i=0; $i < sizeof($columns); $i++) {
             if($columns[$i]['Extra'] == 'auto_increment'){
-                $data[$i] == null;
+                $data[$i] = "Null";
+            } else {
+                if($columns[$i]['Type'] == "tinyint(1)" && ($data[$i] != 0 || $data[$i] != 1)){
+                    $data[$i] = 0;
+                } else {
+                    $data[$i] = "'".$data[$i]. "'";
+                }
             }
         }
+
 
         $values = implode(",", $data);
         var_dump("INSERT INTO " .$table. " VALUES(". $values .")");

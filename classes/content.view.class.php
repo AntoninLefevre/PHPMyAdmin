@@ -33,7 +33,7 @@ class Content_View{
         	$html .= "<tr>";
             foreach ($data as $key => $value) {
                 $html .= "<td>".$value."</td>";
-                
+
             }
             $html .= "<td><a href='index.php?t=actu&db=anevictoire&a=m&id=$stock'>Modifier</a></td>";
             $html .= "</tr>";
@@ -43,11 +43,38 @@ class Content_View{
         return $html;
     }
 
-    public static function formAddContent($data){
+    public static function formAddContent($database, $table){
+        $bdd = MyPDO::getInstance();
 
+        $pdo = $bdd->prepare("USE $database");
+        $pdo->execute();
+
+        $result = $bdd->prepare("select * from ".$table);
+        $result->execute();
+
+        $cols = $bdd->prepare("SHOW COLUMNS FROM " .$table);
+        $cols->execute();
+
+        $columns = $cols->fetchAll();
+
+        $form = <<<HTML
+        <form action="" method="post">
+HTML;
+
+        for ($i=0; $i < sizeof($columns); $i++) {
+            $form .= <<<HTML
+            <label>{$columns[$i]['Field']}:<input type="text" name="values[]"></label><br>
+HTML;
+        }
+
+        $form .= <<<HTML
+        <input type="submit" name="formAddContent">
+        </form>
+HTML;
+        return $form;
     }
 
-    public static function formEditContent($idContent){
+    public static function formEditContent($data){
 
     }
 
