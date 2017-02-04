@@ -41,7 +41,9 @@ class Content_Model{
         $columns = $cols->fetchAll(PDO::FETCH_NUM);
         $result = $bdd->prepare("select * from ".$table." where ".$columns[0][0]."=".$id);
         $result->execute();
-        return $result;
+
+        $res = $result->fetch();
+        return $res;
     }
 
     public static function addContent($database, $table, $data){
@@ -72,7 +74,6 @@ class Content_Model{
 
 
         $values = implode(",", $data);
-        var_dump("INSERT INTO " .$table. " VALUES(". $values .")");
 
         $pdo = $bdd->prepare("INSERT INTO " .$table. " VALUES(". $values .")");
         $pdo->execute();
@@ -92,7 +93,7 @@ class Content_Model{
         }
         $req.=implode(",", $tab);
         $req.=" where ".$columns[0][0]." = ".$value[0];
-    
+
         $sql=$bdd->prepare($req);
         $sql->execute();
     }
@@ -103,12 +104,11 @@ class Content_Model{
 		$cols->execute();
 		$data = $cols->fetch();
 		$champs = $data['Field'];
-		
+
 		$req = "DELETE FROM $table WHERE $champs = $idContent";
-		var_dump($req);
 		$res = MyPDO::getInstance()->prepare($req);
 		$res->execute();
-	
+
     }
 }
 

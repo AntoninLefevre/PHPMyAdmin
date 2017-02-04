@@ -92,12 +92,12 @@ HTML;
 		$html = "<form action='?db=$db_name&t=$tb_name&id=$idContent&a=d' method='POST'>";
 		$html .= "<p>Etes-vous sûr de vouloir supprimer ?</p>";
 		$html .= "<input type='submit' name='delete' value='Oui'/>";
-	}	
-    
-	
-	
-	
-	
+	}
+
+
+
+
+
 }
 
 
