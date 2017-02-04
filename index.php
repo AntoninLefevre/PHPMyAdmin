@@ -18,21 +18,19 @@ if (isset($_GET['a'])){
 			Content_Model::editContent($_GET['db'],$_GET['t'],$_POST);
 		}
 		require_once("classes/content.model.class.php");
-		$content = Content_Model::selectContent($_GET['db'], $_GET['t'], $_GET['id'])
+		$content = Content_Model::selectContent($_GET['db'], $_GET['t'], $_GET['id']);
 		require_once("classes/content.view.class.php");
 		$html =  Content_View::formEditContent($content);
 	}
 	else if ($_GET['a'] == 'd'){
-		if (isset($_GET['delete'])){
+		if (isset($_POST['delete'])){
 			Content_Model::deleteContent($_GET['db'], $_GET['t'], $_GET['id']);
+            header('Location: ?db=' . $_GET['db'] . '&t=' . $_GET['t']);
 		}
 		require_once("classes/content.view.class.php");
 		$html =  Content_View::formDeleteContent($_GET['db'], $_GET['t'], $_GET['id']);
-	}	
-}
-
-
-if(isset($_GET['t'])){
+	}
+} elseif(isset($_GET['t'])){
     require_once("classes/content.model.class.php");
 
     $content = Content_Model::getContent($_GET['t'], $_GET['db']);

@@ -17,13 +17,13 @@ class Content_View{
     }
 
     public static function listContent($tab){
-        $html = "<a href='index.php?a=a'>Ajout</a><br /><table border='1'> <tr>";
+        $html = "<a href='index.php?db=".$_GET['db']. "&t=" .$_GET['t'] .  "&a=a'>Ajout</a><br /><table border='1'> <tr>";
 
 		$columns=$tab[0];
 		$result=$tab[1];
 
         foreach($columns as $column){
-        	$html .= "<td>".$column['Field']."</td>";
+        	$html .= "<td>".$column[0]."</td>";
         }
         $html .= "<td>Modifier</td>";
         $html .= "<td>Supprimer</td>";
@@ -77,7 +77,7 @@ HTML;
     }
 
     public static function formEditContent($result){
-        $html .= "<form action='#' method='POST'>";
+        $html = "<form action='#' method='POST'>";
         foreach($result as $data){
             foreach ($data as $key=>$value) {
                 $html .= $key;
@@ -86,12 +86,16 @@ HTML;
             }
         }
         $html .= "<input type='submit' value='OK' name='edit_btn'></form>";
+
+        return $html;
     }
 
     public static function formDeleteContent($db_name, $tb_name, $idContent){
 		$html = "<form action='?db=$db_name&t=$tb_name&id=$idContent&a=d' method='POST'>";
 		$html .= "<p>Etes-vous sûr de vouloir supprimer ?</p>";
 		$html .= "<input type='submit' name='delete' value='Oui'/>";
+
+        return $html;
 	}
 
 

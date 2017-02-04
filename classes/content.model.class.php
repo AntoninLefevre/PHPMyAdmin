@@ -34,16 +34,16 @@ class Content_Model{
     }
 
     public static function selectContent($database, $table, $idContent){
+        $bdd = MyPDO::getInstance();
         $pdo = $bdd->prepare("USE $database");
         $pdo->execute();
         $cols = $bdd->prepare("SHOW COLUMNS FROM " .$table);
         $cols->execute();
         $columns = $cols->fetchAll(PDO::FETCH_NUM);
-        $result = $bdd->prepare("select * from ".$table." where ".$columns[0][0]."=".$id);
+        $result = $bdd->prepare("select * from ".$table." where ".$columns[0][0]."=".$idContent);
         $result->execute();
 
-        $res = $result->fetch();
-        return $res;
+        return $result;
     }
 
     public static function addContent($database, $table, $data){
@@ -62,24 +62,25 @@ class Content_Model{
 
         for ($i=0; $i < sizeof($columns); $i++) {
             if($columns[$i]['Extra'] == 'auto_increment'){
-                $data[$i] = "Null";
+                $data['values'][$i] = "Null";
             } else {
-                if($columns[$i]['Type'] == "tinyint(1)" && ($data[$i] != 0 || $data[$i] != 1)){
-                    $data[$i] = 0;
+                if($columns[$i]['Type'] == "tinyint(1)" && ($data['values'][$i] != 0 || $data['values'][$i] != 1)){
+                    $data['values'][$i] = 0;
                 } else {
-                    $data[$i] = "'".$data[$i]. "'";
+                    $data['values'][$i] = "'".$data['values'][$i]. "'";
                 }
             }
         }
 
 
-        $values = implode(",", $data);
+        $values = implode(",", $data['values']);
 
         $pdo = $bdd->prepare("INSERT INTO " .$table. " VALUES(". $values .")");
         $pdo->execute();
     }
 
     public static function editContent($database,$table,$value){
+        $bdd = MyPDO::getInstance();
         $pdo = $bdd->prepare("USE $database");
         $pdo->execute();
         $cols = $bdd->prepare("SHOW COLUMNS FROM " .$table);
@@ -88,25 +89,29 @@ class Content_Model{
         $i=0;
         $req = 'UPDATE '.$table.' SET ';
         foreach ($columns as $data) {
-            $tab[]=$data[0].'="'.$value[$i].'"';
+            $tab[]=$data[0].'="'.$value['value'][$i].'"';
             $i++;
         }
         $req.=implode(",", $tab);
-        $req.=" where ".$columns[0][0]." = ".$value[0];
+        //var_dump($value['value'][0]);
+        $req.=" where ".$columns[0][0]." = ".$value['value'][0];
 
         $sql=$bdd->prepare($req);
         $sql->execute();
     }
 
     public static function deleteContent($db_name, $tb_name, $idContent){
-		$col = "SHOW COLUMNS FROM $table";
-		$cols = MyPDO::getInstance()->prepare($col);
+        $bdd = MyPDO::getInstance();
+        $pdo = $bdd->prepare("USE $db_name");
+        $pdo->execute();
+		$col = "SHOW COLUMNS FROM $tb_name";
+		$cols = $bdd->prepare($col);
 		$cols->execute();
 		$data = $cols->fetch();
 		$champs = $data['Field'];
 
-		$req = "DELETE FROM $table WHERE $champs = $idContent";
-		$res = MyPDO::getInstance()->prepare($req);
+		$req = "DELETE FROM $tb_name WHERE $champs = $idContent";
+		$res = $bdd->prepare($req);
 		$res->execute();
 
     }
