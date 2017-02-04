@@ -25,15 +25,17 @@ class Content_View{
         foreach($columns as $column){
         	$html .= "<td>".$column['Field']."</td>";
         }
-
+        $html .= "<td>Modifier</td>";
         $html .= "</tr>";
 
         foreach($result as $data){
-
+            $stock=$data[0];
         	$html .= "<tr>";
-            foreach ($data as $value) {
+            foreach ($data as $key => $value) {
                 $html .= "<td>".$value."</td>";
+                
             }
+            $html .= "<td><a href='index.php?t=actu&db=anevictoire&a=m&id=$stock'>Modifier</a></td>";
             $html .= "</tr>";
         }
 

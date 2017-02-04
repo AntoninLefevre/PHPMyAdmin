@@ -23,7 +23,7 @@ class Content_Model{
 
         // return
         $columns = $cols->fetchAll();
-        $res = $result->fetchAll();
+        $res = $result->fetchAll(PDO::FETCH_NUM);
 
         $tab[0]=$columns;
         $tab[1]=$res;
