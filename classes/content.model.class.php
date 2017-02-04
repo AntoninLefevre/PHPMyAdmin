@@ -22,7 +22,7 @@ class Content_Model{
         $cols->execute();
 
         // return
-        $columns = $cols->fetchAll();
+        $columns = $cols->fetchAll(PDO::FETCH_NUM);
         $res = $result->fetchAll(PDO::FETCH_NUM);
 
         $tab[0]=$columns;
@@ -43,8 +43,18 @@ class Content_Model{
 
     }
 
-    public static function deleteContent($idContent){
-
+    public static function deleteContent($db_name, $tb_name, $idContent){
+		$col = "SHOW COLUMNS FROM $table";
+		$cols = MyPDO::getInstance()->prepare($col);
+		$cols->execute();
+		$data = $cols->fetch();
+		$champs = $data['Field'];
+		
+		$req = "DELETE FROM $table WHERE $champs = $idContent";
+		var_dump($req);
+		$res = MyPDO::getInstance()->prepare($req);
+		$res->execute();
+	
     }
 }
 
