@@ -47,7 +47,7 @@ class Content_View{
 
     }
 
-    public static function formEditContent($content){
+    public static function formEditContent($idContent){
 
     }
 
