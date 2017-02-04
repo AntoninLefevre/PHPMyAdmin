@@ -7,10 +7,13 @@ class Content_Model{
 
     }
 
-   
 
-    public static function getContent($table){
+
+    public static function getContent($table, $database){
         $bdd = MyPDO::getInstance();
+
+        $pdo = $bdd->prepare("USE $database");
+        $pdo->execute();
 
         $result = $bdd->prepare("select * from ".$table);
         $result->execute();
@@ -26,6 +29,22 @@ class Content_Model{
         $tab[1]=$res;
 
         return $tab;
+    }
+
+    public static function selectContent($idContent){
+
+    }
+
+    public static function addContent($data){
+
+    }
+
+    public static function editContent($data){
+
+    }
+
+    public static function deleteContent($idContent){
+
     }
 }
 
