@@ -30,6 +30,22 @@ class Content_Model{
 
         return $tab;
     }
+
+    public static function selectContent($idContent){
+
+    }
+
+    public static function addContent($data){
+
+    }
+
+    public static function editContent($data){
+
+    }
+
+    public static function deleteContent($idContent){
+
+    }
 }
 
 
